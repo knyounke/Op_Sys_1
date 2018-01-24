@@ -28,7 +28,21 @@ int main(void){
 	while((directory_entry = readdir(directory))){
 		if((directory_entry->d_type) & DT_DIR)
 			cout << j << "Directory: " << directory_entry->d_name << endl;
+		if( ( j % 8 ) == 0) {
+		  cout << "Hit N for Next" << endl; //handle times if only subdirs
+		  cin >> k;
+		}
 	}
+	closedir(directory);
+	cout << "------------------------------------" << endl;
+	cin >> j;
+	switch (j) {
+	 case 'q':
+	 case 'e':
+	 case 'r':
+	 case 'c':
+	}
+	
 	
     }
   
