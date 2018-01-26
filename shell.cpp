@@ -30,7 +30,7 @@ int main(void){
 		if((directory_entry->d_type) & DT_DIR)
 			cout << j << "Directory: " << directory_entry->d_name << endl;
 		if( ( j % 8 ) == 0) {
-		  cout << "Hit N for Next" << endl; //handle times if only subdirs
+		  cout << "Hit N for Next" << endl; //handle times if only subdirs (if none, goes in infinite loop)
 		  cin >> k;
 		}
 	}
@@ -41,9 +41,9 @@ int main(void){
 	 case 'q': exit(0);
 		   break;
 	 case 'e': cout << "Edit What? " << endl;
-		   cin >> string;
+		   cin >> buffer;
 		   strcpy(command, "pico ");
-		   strcat(command, string);
+		   strcat(command, buffer);
 		   system(command);
 		   break;
 	 case 'r': cout << "Run what? " << endl;
