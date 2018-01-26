@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <exception>
+#include <cstring>
 #include <iostream>
 #include <sys/types.h>
 #include <stdlib.h>
@@ -37,10 +38,22 @@ int main(void){
 	cout << "------------------------------------" << endl;
 	cin >> j;
 	switch (j) {
-	 case 'q':
-	 case 'e':
-	 case 'r':
-	 case 'c':
+	 case 'q': exit(0);
+		   break;
+	 case 'e': cout << "Edit What? " << endl;
+		   cin >> string;
+		   strcpy(command, "pico ");
+		   strcat(command, string);
+		   system(command);
+		   break;
+	 case 'r': cout << "Run what? " << endl;
+		   cin >> command;
+		   system(command);
+		   break;
+	 case 'c': cout << "Change to? " << endl;
+		   cin >> command;
+		   chdir(command);
+		   break;
 	}
 	
 	
