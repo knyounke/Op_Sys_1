@@ -16,12 +16,12 @@ int main(void){
    DIR * directory;
    struct dirent * directory_entry;
    int i, j, k; //incrementors
-   char buffer[256], command[256]; //buffers for command and string
+   string buffer, command; //buffers for command and string
    time_t time;
 
    while(true){
 	cout<< "Time: "<< ctime(&time) << endl;
-	 getcwd(buffer, 300); //figure out second argument size
+	buffer = get_current_dir_name();//figure out second argument size
   	 cout << endl << "Current Directory: " << buffer << endl;
 	
 	directory = opendir(".");
@@ -42,7 +42,7 @@ int main(void){
 		   break;
 	 case 'e': cout << "Edit What? " << endl;
 		   cin >> buffer;
-		   strcpy(command, "pico ");
+		   command = "pico ";
 		   strcat(command, buffer);
 		   system(command);
 		   break;
