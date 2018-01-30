@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <fstream>
 #include <sys/stat.h>
+#include <exception>
 
 // Katherine Younke
 // CSE 3320-003
@@ -49,6 +50,7 @@ bool can_execute(const string file)
 
 }
 
+
 int main(void){
    pid_t child; //process id
    DIR * directory;
@@ -57,6 +59,7 @@ int main(void){
    string k;
    string buffer, command; //buffers for command and string
    time_t time;
+   char* const* args;
 
    while(true){
 	cout<< "Time: "<< ctime(&time) << endl;
@@ -79,7 +82,7 @@ int main(void){
 	closedir(directory);
 	cout << "------------------------------------" << endl;
 	getline(cin, k);
-
+	
 
 	if(k == "q")
 	  exit(0);
@@ -91,7 +94,9 @@ int main(void){
 			if(is_a_file(buffer) == true){
 		  	 command = "pico ";
 		   	command += buffer;
-		  	 system(command.c_str());
+// instead of "system(command.c_str());" which calls another shell instead of making system calls
+			fork(); execv(command.c_str(), args);
+		  	
 			break;
 			}
 			else
@@ -109,8 +114,8 @@ int main(void){
 		
 			//check to see if the file is actually executable
 				if(can_execute(command) == true)
-				{
-					 system(command.c_str()); break;
+				{	
+					fork(); execv(command.c_str(), args); break;// system(command.c_str()); break;
 				}
 				else
 				{
@@ -125,7 +130,9 @@ int main(void){
 	 else if(k == "c"){
 	 	 cout << "Change to? " << endl;
 		   cin >> command;
-		   chdir(command.c_str());
+		   try {chdir(command.c_str());}
+			catch(exception e)
+			{ cout << "Path could not be reached. Please try another path." << endl; }
 		   }
 	else
 		{
