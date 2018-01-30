@@ -43,16 +43,16 @@ int main(void){
 	 case 'e': cout << "Edit What? " << endl;
 		   cin >> buffer;
 		   command = "pico ";
-		   strcat(command, buffer);
-		   system(command);
+		   command += buffer;
+		   system(command.c_str());
 		   break;
 	 case 'r': cout << "Run what? " << endl;
 		   cin >> command;
-		   system(command);
+		   system(command.c_str());
 		   break;
 	 case 'c': cout << "Change to? " << endl;
 		   cin >> command;
-		   chdir(command);
+		   chdir(command.c_str());
 		   break;
 	}
 	
