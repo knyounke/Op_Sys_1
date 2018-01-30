@@ -46,8 +46,6 @@ bool can_execute(const string file)
 		return true;
 	return false;
 
-
-
 }
 
 
@@ -60,6 +58,7 @@ int main(void){
    string buffer, command; //buffers for command and string
    time_t time;
    char* const* args;
+   struct dirent ** list;
 
    while(true){
 	cout<< "Time: "<< ctime(&time) << endl;
@@ -77,10 +76,13 @@ int main(void){
 		  cout << "Hit N for Next" << endl; 
 		  cin >> k;
 		}
+		else
+			break;
 		}
 	}
 	closedir(directory);
 	cout << "------------------------------------" << endl;
+	cout << "Enter a command:\n\nq Quit\ne Edit\nr Run\nc Change Directory\ns Sort Directory Listing"<< endl;
 	getline(cin, k);
 	
 
@@ -132,8 +134,23 @@ int main(void){
 		   cin >> command;
 		   try {chdir(command.c_str());}
 			catch(exception e)
-			{ cout << "Path could not be reached. Please try another path." << endl; }
+			{ cout << "Path could not be reached. Please try another directory." << endl; }
 		   }
+	else if(k == "s"){
+
+		int p, m;
+		p = scandir(".", &list, 0, versionsort);
+		if (p < 0)
+			perror("scandir");
+		else
+		{
+			for(m=0; m < p; ++m)
+			{
+			cout << list[m]->d_name << endl;
+			}
+		}
+
+		}
 	else
 		{
 		cout << "ERROR. Incorrect entry!" << endl << endl;
